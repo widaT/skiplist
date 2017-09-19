@@ -2,6 +2,7 @@ package skiplist
 
 import (
 	"math/rand"
+	"fmt"
 )
 
 const p = 0.25
@@ -197,17 +198,13 @@ type rangeIterator struct {
 }
 
 func (i *rangeIterator) Next() bool {
-
-
 	if !i.current.hasNext() {
 		return false
 	}
-
 	next := i.current.next()
 	if next.key > i.upperLimit {
 		return false
 	}
-
 
 	i.current = next
 	i.key = next.key
@@ -329,6 +326,8 @@ func (i *SkipList) Nnext()bool {
 // key is greater or equal to key; otherwise, a nil iterator is returned.
 func (s *SkipList) Seek(key float64) Iterator {
 	current := s.getPath(s.header, nil, key,"")
+
+	fmt.Println(current)
 	if current == nil {
 		return nil
 	}
@@ -339,11 +338,11 @@ func (s *SkipList) Seek(key float64) Iterator {
 		list:    s,
 		value:   current.value,
 	}
-	for pre := current.previous();pre!= nil && pre.key == key;pre = pre.previous(){
+/*	for pre := current.previous();pre!= nil && pre.key == key;pre = pre.previous(){
 		i.current = pre
 		i.key = pre.key
 		i.value = pre.value
-	}
+	}*/
 
 	return &i
 }
@@ -386,7 +385,6 @@ func (s *SkipList) SeekToLast() Iterator {
 // less than to.
 func (s *SkipList) Range(from, to float64) Iterator {
 	start := s.getPath(s.header, nil, from,"")
-
 	return &rangeIterator{
 		iter: iter{
 			current: &node{
@@ -483,7 +481,7 @@ func (s *SkipList) getPath(current *node, update []*node, key float64,value stri
 			update[i] = current
 		}
 	}
-	return current
+	return current.next()
 }
 
 // Sets set the value associated with key in s.
