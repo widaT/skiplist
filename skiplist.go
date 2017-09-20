@@ -163,11 +163,6 @@ func (i *iter) Seek(key float64) (ok bool) {
 	i.current = current
 	i.key = current.key
 	i.value = current.value
-	/*for pre := current.previous();pre.key == key;pre = pre.previous(){
-		i.current = pre
-		i.key = pre.key
-		i.value = pre.value
-	}*/
 	return true
 }
 
@@ -300,12 +295,6 @@ func (s *SkipList) Seek(key float64) Iterator {
 		list:    s,
 		value:   current.value,
 	}
-/*	for pre := current.previous();pre!= nil && pre.key == key;pre = pre.previous(){
-		i.current = pre
-		i.key = pre.key
-		i.value = pre.value
-	}*/
-
 	return &i
 }
 

@@ -69,5 +69,35 @@ func TestSkipList_Set(t *testing.T) {
 
 
 func TestIter_Seek(t *testing.T) {
+	sk := NewSkipList()
+	sk.Set(1,"test1")
+	sk.Set(2,"test2")
+	sk.Set(3,"test2")
+	sk.Set(3,"test3")
+	sk.Set(4,"test4")
+	iter :=sk.SeekToFirst()
+
+	if iter.Value() != "test1" && iter.Key() != float64(1) {
+		t.Fatalf("skiplist length expected '%f:%s', got '%f:%s'",  float64(1), "test1",iter.Key(),iter.Value())
+	}
+
+	iter =sk.SeekToLast()
+	if iter.Value() != "test4" && iter.Key() != float64(4) {
+		t.Fatalf("skiplist length expected '%f:%s', got '%f:%s'",  float64(4), "test1",iter.Key(),iter.Value())
+	}
+
+
+	sk.Set(5,"test2")
+	iter =sk.SeekToLast()
+	if iter.Value() != "test4" && iter.Key() != float64(5) {
+		t.Fatalf("skiplist length expected '%f:%s', got '%f:%s'",  float64(5), "test1",iter.Key(),iter.Value())
+	}
+}
+
+func TestSkipList_Range(t *testing.T) {
+
+}
+
+func TestSkipList_IndexRange(t *testing.T) {
 
 }
