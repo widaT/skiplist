@@ -7,7 +7,7 @@ import (
 )
 func main()  {
 
-	s :=skiplist.New()
+	s :=skiplist.NewSkipList()
 	s.Set(10,"dddd")
 	s.Set(1,"dddd")
 	s.Set(9,"dddd")

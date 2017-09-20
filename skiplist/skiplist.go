@@ -163,11 +163,11 @@ func (i *iter) Seek(key float64) (ok bool) {
 	i.current = current
 	i.key = current.key
 	i.value = current.value
-	for pre := current.previous();pre.key == key;pre = pre.previous(){
+	/*for pre := current.previous();pre.key == key;pre = pre.previous(){
 		i.current = pre
 		i.key = pre.key
 		i.value = pre.value
-	}
+	}*/
 	return true
 }
 
@@ -496,13 +496,9 @@ func (s *SkipList) Set(key float64, value string) {
 	}
 }
 
-// Delete removes the node with the given key.
-//
-// It returns the old value and whether the node was present.
 func (s *SkipList) DeleteAll(key float64)  bool {
 	update := make([]*node, s.level()+1, s.effectiveMaxLevel())
 	candidate := s.getPath(s.header, update, key,"")
-
 
 	if candidate == nil || candidate.key != key {
 		return  false
@@ -524,9 +520,6 @@ func (s *SkipList) DeleteAll(key float64)  bool {
 }
 
 
-// Delete removes the node with the given key.
-//
-// It returns the old value and whether the node was present.
 func (s *SkipList) Delete(key float64,value string) (ok bool) {
 	update := make([]*node, s.level()+1, s.effectiveMaxLevel())
 	candidate := s.getPath(s.header, update, key,value)
@@ -558,18 +551,7 @@ func (s *SkipList) Delete(key float64,value string) (ok bool) {
 }
 
 
-// Ordered is an interface which can be linearly ordered by the
-// LessThan method, whereby this instance is deemed to be less than
-// other. Additionally, Ordered instances should behave properly when
-// compared using == and !=.
-type Ordered interface {
-	LessThan(other Ordered) bool
-}
-
-// New returns a new SkipList.
-//
-// Its keys must implement the Ordered interface.
-func New() *SkipList {
+func NewSkipList() *SkipList {
 	return &SkipList{
 		header: &node{
 			forward: []*node{nil},
