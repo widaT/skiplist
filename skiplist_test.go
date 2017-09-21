@@ -95,9 +95,45 @@ func TestIter_Seek(t *testing.T) {
 }
 
 func TestSkipList_Range(t *testing.T) {
+	sk := NewSkipList()
+	mp := map[float64]string {1:"test1",2:"test2",3:"test3",4:"test4"}
+	for k ,v := range mp {
+		sk.Set(k,v)
+	}
 
+	iter := sk.Range(1,4)
+
+	i := 0
+	for iter.Next() {
+		i++
+		if iter.Value() != mp[float64(i)] && iter.Key() != float64(i) {
+			t.Fatalf("skiplist range expected '%f:%s', got '%f:%s'", float64(i), mp[float64(i)], iter.Key(), iter.Value())
+		}
+	}
+
+	if i != 4 {
+		t.Fatalf("skiplist range expected '%f', got '%f'", float64(4), mp[float64(i)])
+	}
 }
 
 func TestSkipList_IndexRange(t *testing.T) {
+	sk := NewSkipList()
+	mp := map[float64]string {1:"test1",2:"test2",3:"test3",4:"test4"}
+	for k ,v := range mp {
+		sk.Set(k,v)
+	}
 
+	iter := sk.IndexRange(0,4)
+
+	i := 0
+	for iter.Next() {
+		i++
+		if iter.Value() != mp[float64(i)] && iter.Key() != float64(i) {
+			t.Fatalf("skiplist range expected '%f:%s', got '%f:%s'", float64(i), mp[float64(i)], iter.Key(), iter.Value())
+		}
+	}
+
+	if i != 4 {
+		t.Fatalf("skiplist range expected '%f', got '%f'", float64(4), mp[float64(i)])
+	}
 }
