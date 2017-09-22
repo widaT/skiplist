@@ -1,3 +1,17 @@
+// Copyright 2012 Google Inc. All rights reserved.
+// Author: Ric Szopa (Ryszard) <ryszard.szopa@gmail.com> https://github.com/ryszard/goskiplist
+// Author: wida <wida@foxmail.com>
+// Package skiplist implements skip list based maps and sets.
+//
+// Skip lists are a data structure that can be used in place of
+// balanced trees. Skip lists use probabilistic balancing rather than
+// strictly enforced balancing and as a result the algorithms for
+// insertion and deletion in skip lists are much simpler and
+// significantly faster than equivalent algorithms for balanced trees.
+//
+// Skip lists were first described in Pugh, William (June 1990). "Skip
+// lists: a probabilistic alternative to balanced
+// trees". Communications of the ACM 33 (6): 668–676
 package skiplist
 
 import (
